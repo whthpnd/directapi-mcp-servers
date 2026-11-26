@@ -10,21 +10,24 @@ Fast, proxy-free **Streamable HTTP Model Context Protocol (MCP) Servers**, real-
 
 ## Remote MCP Servers (Streamable HTTP)
 
+<!-- AUTO-MCP-TABLE:START -->
 Every server below speaks standard **MCP Streamable HTTP JSON-RPC 2.0** (`initialize`, `tools/list`, `tools/call`) at `/mcp` and authenticates with your Apify API token (`Authorization: Bearer YOUR_APIFY_TOKEN`).
 
 | MCP Server | Remote `/mcp` Endpoint | Tools | Store Status |
 |---|---|---|---|
 | **B2B Company, EU VAT/KYB & Fraud Risk** | `https://whthpnd--b2b-company-kyb-risk-api.apify.actor/mcp` | `enrich_b2b_full`, `enrich_company_profile`, `assess_email_domain_risk`, `verify_kyb_vat_sanctions` | [Live on Apify](https://apify.com/whthpnd/b2b-company-kyb-risk-api) |
-| **Website SEO, `llms.txt` (GEO) & Security Audit** | `https://whthpnd--seo-geo-security-audit-api.apify.actor/mcp` | `audit_website_full`, `check_ai_geo_readiness`, `audit_ssl_and_security_headers` | [Actor Page](https://apify.com/whthpnd/seo-geo-security-audit-api) |
-| **Domain, Brand & Handle Availability** | `https://whthpnd--domain-brand-availability-api.apify.actor/mcp` | `check_brand_launch_availability`, `check_domains_only` | [Actor Page](https://apify.com/whthpnd/domain-brand-availability-api) |
-| **Apple App Store Reviews & Developer Leads** | `https://whthpnd--ios-app-store-leads-reviews-api.apify.actor/mcp` | `search_ios_apps_and_developer_leads`, `get_ios_app_details`, `get_ios_app_reviews` | [Actor Page](https://apify.com/whthpnd/ios-app-store-leads-reviews-api) |
-| **SEC Company Financials (XBRL) & Form 4 Insiders** | `https://whthpnd--sec-financials-insider-trading-api.apify.actor/mcp` | `get_sec_company_full`, `get_sec_xbrl_financials`, `get_sec_insider_trades` | [Actor Page](https://apify.com/whthpnd/sec-financials-insider-trading-api) |
+| **Website SEO, `llms.txt` (GEO) & Security Audit** | `https://whthpnd--seo-geo-security-audit-api.apify.actor/mcp` | `audit_website_full`, `check_ai_geo_readiness`, `audit_ssl_and_security_headers` | `Staging (Publishing Soon)` |
+| **Domain, Brand & Handle Availability** | `https://whthpnd--domain-brand-availability-api.apify.actor/mcp` | `check_brand_launch_availability`, `check_domains_only` | `Staging (Publishing Soon)` |
+| **Apple App Store Reviews & Developer Leads** | `https://whthpnd--ios-app-store-leads-reviews-api.apify.actor/mcp` | `search_ios_apps_and_developer_leads`, `get_ios_app_details`, `get_ios_app_reviews` | `Staging (Publishing Soon)` |
+| **SEC Company Financials (XBRL) & Form 4 Insiders** | `https://whthpnd--sec-financials-insider-trading-api.apify.actor/mcp` | `get_sec_company_full`, `get_sec_xbrl_financials`, `get_sec_insider_trades` | `Staging (Publishing Soon)` |
+<!-- AUTO-MCP-TABLE:END -->
 
 ---
 
 ## Cursor / Claude / Windsurf Config (`mcp.json`)
 
-Copy [`mcp-configs/cursor-all-5.json`](./mcp-configs/cursor-all-5.json) (or pick the servers you need) and replace `YOUR_APIFY_TOKEN`:
+<!-- AUTO-MCP-CONFIG:START -->
+Copy [`mcp-configs/cursor-all.json`](./mcp-configs/cursor-all.json) (or pick the servers you need) and replace `YOUR_APIFY_TOKEN`:
 
 ```json
 {
@@ -62,6 +65,7 @@ Copy [`mcp-configs/cursor-all-5.json`](./mcp-configs/cursor-all-5.json) (or pick
   }
 }
 ```
+<!-- AUTO-MCP-CONFIG:END -->
 
 ---
 
@@ -108,32 +112,34 @@ curl -s -H "Authorization: Bearer $APIFY_TOKEN" \
 
 ## Full DirectAPI Labs Actor Catalog (Apify Store)
 
+<!-- AUTO-CATALOG:START -->
 | Category | Actor | Apify Store Link |
 |---|---|---|
-| **B2B Intelligence / KYB** | `b2b-company-kyb-risk-api` | [apify.com/whthpnd/b2b-company-kyb-risk-api](https://apify.com/whthpnd/b2b-company-kyb-risk-api) |
-| **SEO / GEO / Security** | `seo-geo-security-audit-api` | [apify.com/whthpnd/seo-geo-security-audit-api](https://apify.com/whthpnd/seo-geo-security-audit-api) |
-| **Brand & Domains** | `domain-brand-availability-api` | [apify.com/whthpnd/domain-brand-availability-api](https://apify.com/whthpnd/domain-brand-availability-api) |
-| **Mobile & ASO Leads** | `ios-app-store-leads-reviews-api` | [apify.com/whthpnd/ios-app-store-leads-reviews-api](https://apify.com/whthpnd/ios-app-store-leads-reviews-api) |
-| **Public Markets & SEC** | `sec-financials-insider-trading-api` | [apify.com/whthpnd/sec-financials-insider-trading-api](https://apify.com/whthpnd/sec-financials-insider-trading-api) |
-| **US Trucking Leads** | `fmcsa-usdot-trucking-leads-scraper` | [apify.com/whthpnd/fmcsa-usdot-trucking-leads-scraper](https://apify.com/whthpnd/fmcsa-usdot-trucking-leads-scraper) |
-| **US Healthcare Leads** | `npi-healthcare-doctors-leads-scraper` | [apify.com/whthpnd/npi-healthcare-doctors-leads-scraper](https://apify.com/whthpnd/npi-healthcare-doctors-leads-scraper) |
-| **Gov Tenders (UK/FR)** | `uk-france-public-tenders-scraper` | [apify.com/whthpnd/uk-france-public-tenders-scraper](https://apify.com/whthpnd/uk-france-public-tenders-scraper) |
-| **Gov Tenders (EU TED)** | `ted-europa-eu-tenders-scraper` | [apify.com/whthpnd/ted-europa-eu-tenders-scraper](https://apify.com/whthpnd/ted-europa-eu-tenders-scraper) |
-| **Venture / Form D** | `sec-form-d-funded-startups-scraper` | [apify.com/whthpnd/sec-form-d-funded-startups-scraper](https://apify.com/whthpnd/sec-form-d-funded-startups-scraper) |
-| **Community / RAG** | `discourse-forums-threads-scraper` | [apify.com/whthpnd/discourse-forums-threads-scraper](https://apify.com/whthpnd/discourse-forums-threads-scraper) |
-| **Extension Leads** | `chrome-web-store-leads-scraper` | [apify.com/whthpnd/chrome-web-store-leads-scraper](https://apify.com/whthpnd/chrome-web-store-leads-scraper) |
-| **Events & Organizers** | `luma-events-organizers-scraper` | [apify.com/whthpnd/luma-events-organizers-scraper](https://apify.com/whthpnd/luma-events-organizers-scraper) |
-| **Remote Jobs** | `himalayas-remote-jobs-scraper` | [apify.com/whthpnd/himalayas-remote-jobs-scraper](https://apify.com/whthpnd/himalayas-remote-jobs-scraper) |
-| **Newsletter Leads** | `substack-newsletters-posts-scraper` | [apify.com/whthpnd/substack-newsletters-posts-scraper](https://apify.com/whthpnd/substack-newsletters-posts-scraper) |
-| **Podcast Host Emails** | `apple-podcasts-leads-scraper` | [apify.com/whthpnd/apple-podcasts-leads-scraper](https://apify.com/whthpnd/apple-podcasts-leads-scraper) |
-| **Tech Career Boards** | `ats-jobs-greenhouse-lever-ashby` | [apify.com/whthpnd/ats-jobs-greenhouse-lever-ashby](https://apify.com/whthpnd/ats-jobs-greenhouse-lever-ashby) |
-| **Jobs Multi-Feed** | `remote-jobs-multi-aggregator` | [apify.com/whthpnd/remote-jobs-multi-aggregator](https://apify.com/whthpnd/remote-jobs-multi-aggregator) |
-| **Tech News / HN** | `hacker-news-fast-scraper` | [apify.com/whthpnd/hacker-news-fast-scraper](https://apify.com/whthpnd/hacker-news-fast-scraper) |
-| **Remote Tech Jobs** | `weworkremotely-remote-jobs-scraper` | [apify.com/whthpnd/weworkremotely-remote-jobs-scraper](https://apify.com/whthpnd/weworkremotely-remote-jobs-scraper) |
-| **Central EU Ads** | `bazos-classifieds-scraper` | [apify.com/whthpnd/bazos-classifieds-scraper](https://apify.com/whthpnd/bazos-classifieds-scraper) |
-| **Live Music Tickets** | `dice-fm-events-scraper` | [apify.com/whthpnd/dice-fm-events-scraper](https://apify.com/whthpnd/dice-fm-events-scraper) |
-| **Electronic Events** | `resident-advisor-events-scraper` | [apify.com/whthpnd/resident-advisor-events-scraper](https://apify.com/whthpnd/resident-advisor-events-scraper) |
-| **Prediction Markets** | `polymarket-kalshi-prediction-markets` | [apify.com/whthpnd/polymarket-kalshi-prediction-markets](https://apify.com/whthpnd/polymarket-kalshi-prediction-markets) |
+| **B2B Intelligence / KYB** | `b2b-company-kyb-risk-api` | [whthpnd/b2b-company-kyb-risk-api](https://apify.com/whthpnd/b2b-company-kyb-risk-api) |
+| **SEO / GEO / Security** | `seo-geo-security-audit-api` | `Staging (Publishing Soon)` |
+| **Brand & Domains** | `domain-brand-availability-api` | `Staging (Publishing Soon)` |
+| **Mobile & ASO Leads** | `ios-app-store-leads-reviews-api` | `Staging (Publishing Soon)` |
+| **Public Markets & SEC** | `sec-financials-insider-trading-api` | `Staging (Publishing Soon)` |
+| **Podcast Host Emails** | `apple-podcasts-leads-scraper` | [whthpnd/apple-podcasts-leads-scraper](https://apify.com/whthpnd/apple-podcasts-leads-scraper) |
+| **Tech Career Boards** | `ats-jobs-greenhouse-lever-ashby` | [whthpnd/ats-jobs-greenhouse-lever-ashby](https://apify.com/whthpnd/ats-jobs-greenhouse-lever-ashby) |
+| **Central EU Ads** | `bazos-classifieds-scraper` | [whthpnd/bazos-classifieds-scraper](https://apify.com/whthpnd/bazos-classifieds-scraper) |
+| **Extension Leads** | `chrome-web-store-leads-scraper` | [whthpnd/chrome-web-store-leads-scraper](https://apify.com/whthpnd/chrome-web-store-leads-scraper) |
+| **Live Music Tickets** | `dice-fm-events-scraper` | [whthpnd/dice-fm-events-scraper](https://apify.com/whthpnd/dice-fm-events-scraper) |
+| **Community / RAG** | `discourse-forums-threads-scraper` | [whthpnd/discourse-forums-threads-scraper](https://apify.com/whthpnd/discourse-forums-threads-scraper) |
+| **US Trucking Leads** | `fmcsa-usdot-trucking-leads-scraper` | [whthpnd/fmcsa-usdot-trucking-leads-scraper](https://apify.com/whthpnd/fmcsa-usdot-trucking-leads-scraper) |
+| **Tech News / HN** | `hacker-news-fast-scraper` | [whthpnd/hacker-news-fast-scraper](https://apify.com/whthpnd/hacker-news-fast-scraper) |
+| **Remote Jobs** | `himalayas-remote-jobs-scraper` | [whthpnd/himalayas-remote-jobs-scraper](https://apify.com/whthpnd/himalayas-remote-jobs-scraper) |
+| **Events & Organizers** | `luma-events-organizers-scraper` | [whthpnd/luma-events-organizers-scraper](https://apify.com/whthpnd/luma-events-organizers-scraper) |
+| **US Healthcare Leads** | `npi-healthcare-doctors-leads-scraper` | [whthpnd/npi-healthcare-doctors-leads-scraper](https://apify.com/whthpnd/npi-healthcare-doctors-leads-scraper) |
+| **Jobs Multi-Feed** | `remote-jobs-multi-aggregator` | [whthpnd/remote-jobs-multi-aggregator](https://apify.com/whthpnd/remote-jobs-multi-aggregator) |
+| **Electronic Events** | `resident-advisor-events-scraper` | [whthpnd/resident-advisor-events-scraper](https://apify.com/whthpnd/resident-advisor-events-scraper) |
+| **Venture / Form D** | `sec-form-d-funded-startups-scraper` | [whthpnd/sec-form-d-funded-startups-scraper](https://apify.com/whthpnd/sec-form-d-funded-startups-scraper) |
+| **Newsletter Leads** | `substack-newsletters-posts-scraper` | [whthpnd/substack-newsletters-posts-scraper](https://apify.com/whthpnd/substack-newsletters-posts-scraper) |
+| **Gov Tenders (EU TED)** | `ted-europa-eu-tenders-scraper` | [whthpnd/ted-europa-eu-tenders-scraper](https://apify.com/whthpnd/ted-europa-eu-tenders-scraper) |
+| **Gov Tenders (UK/FR)** | `uk-france-public-tenders-scraper` | [whthpnd/uk-france-public-tenders-scraper](https://apify.com/whthpnd/uk-france-public-tenders-scraper) |
+| **Remote Tech Jobs** | `weworkremotely-remote-jobs-scraper` | [whthpnd/weworkremotely-remote-jobs-scraper](https://apify.com/whthpnd/weworkremotely-remote-jobs-scraper) |
+| **Prediction Markets** | `polymarket-kalshi-prediction-markets` | `Staging (Publishing Soon)` |
+<!-- AUTO-CATALOG:END -->
 
 ---
 
