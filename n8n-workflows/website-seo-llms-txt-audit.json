@@ -1,0 +1,116 @@
+{
+  "name": "Website SEO, llms.txt (AI Search) & SSL Audit (DirectAPI Labs)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-start",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "domain",
+              "value": "anthropic.com",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "set-domain",
+      "name": "Target Domain",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://whthpnd--seo-geo-security-audit-api.apify.actor/v1/audit",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "domain",
+              "value": "={{ $json.domain }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_APIFY_TOKEN"
+            }
+          ]
+        }
+      },
+      "id": "run-seo-audit",
+      "name": "Audit SEO, llms.txt & SSL",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.overallScore }}",
+              "operation": "smaller",
+              "value2": 85
+            }
+          ]
+        }
+      },
+      "id": "needs-fix",
+      "name": "Score Below 85?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [920, 300]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Target Domain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Target Domain": {
+      "main": [
+        [
+          {
+            "node": "Audit SEO, llms.txt & SSL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audit SEO, llms.txt & SSL": {
+      "main": [
+        [
+          {
+            "node": "Score Below 85?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
