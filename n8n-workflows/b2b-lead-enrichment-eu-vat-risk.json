@@ -1,0 +1,121 @@
+{
+  "name": "B2B Lead Enrichment, EU VAT & Fraud Risk Check (DirectAPI Labs)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "b2b-lead-enrichment",
+        "responseMode": "onReceived"
+      },
+      "id": "webhook-lead",
+      "name": "Inbound Lead Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://whthpnd--b2b-company-kyb-risk-api.apify.actor/v1/full",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "target",
+              "value": "={{ $json.body.email || $json.body.domain }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_APIFY_TOKEN"
+            }
+          ]
+        }
+      },
+      "id": "enrich-b2b",
+      "name": "DirectAPI B2B KYB & Fraud Risk",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.riskVerdict }}",
+              "operation": "equals",
+              "value2": "allow"
+            }
+          ]
+        }
+      },
+      "id": "check-verdict",
+      "name": "Is Legitimate B2B Lead?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [700, 300]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "qualifiedLead",
+              "value": "={{ $json.companyName + ' | ' + $json.legalName + ' | VAT valid: ' + $json.vatValid + ' | Tech: ' + ($json.techStack || []).join(', ') }}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "format-qualified",
+      "name": "Format Qualified CRM Payload",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [940, 220]
+    }
+  ],
+  "connections": {
+    "Inbound Lead Webhook": {
+      "main": [
+        [
+          {
+            "node": "DirectAPI B2B KYB & Fraud Risk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DirectAPI B2B KYB & Fraud Risk": {
+      "main": [
+        [
+          {
+            "node": "Is Legitimate B2B Lead?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Legitimate B2B Lead?": {
+      "main": [
+        [
+          {
+            "node": "Format Qualified CRM Payload",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
