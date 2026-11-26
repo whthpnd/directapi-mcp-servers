@@ -1,0 +1,113 @@
+{
+  "name": "Daily SEC XBRL Financials & Form 4 Insider Alerts (DirectAPI Labs)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "days",
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "daily-trigger",
+      "name": "Daily 9AM Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return ['NVDA', 'AAPL', 'MSFT'].map(ticker => ({ json: { ticker } }));"
+      },
+      "id": "ticker-watchlist",
+      "name": "Watchlist Tickers",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://whthpnd--sec-financials-insider-trading-api.apify.actor/v1/full",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "ticker",
+              "value": "={{ $json.ticker }}"
+            },
+            {
+              "name": "limit",
+              "value": "5"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_APIFY_TOKEN"
+            }
+          ]
+        }
+      },
+      "id": "fetch-sec",
+      "name": "Fetch SEC XBRL & Form 4",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.map(it => ({\n  json: {\n    ticker: it.json.ticker,\n    companyName: it.json.companyName,\n    annualRevenueUsd: it.json.latestAnnualRevenue,\n    annualNetIncomeUsd: it.json.latestAnnualNetIncome,\n    latestInsiderSummary: it.json.latestInsiderSummary\n  }\n}));"
+      },
+      "id": "format-digest",
+      "name": "Summarize SEC Digest",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [920, 300]
+    }
+  ],
+  "connections": {
+    "Daily 9AM Trigger": {
+      "main": [
+        [
+          {
+            "node": "Watchlist Tickers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Watchlist Tickers": {
+      "main": [
+        [
+          {
+            "node": "Fetch SEC XBRL & Form 4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch SEC XBRL & Form 4": {
+      "main": [
+        [
+          {
+            "node": "Summarize SEC Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
