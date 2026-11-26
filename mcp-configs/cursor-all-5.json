@@ -1,0 +1,34 @@
+{
+  "mcpServers": {
+    "b2b-company-kyb-risk": {
+      "url": "https://whthpnd--b2b-company-kyb-risk-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    },
+    "seo-geo-security-audit": {
+      "url": "https://whthpnd--seo-geo-security-audit-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    },
+    "domain-brand-availability": {
+      "url": "https://whthpnd--domain-brand-availability-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    },
+    "ios-appstore-leads-reviews": {
+      "url": "https://whthpnd--ios-app-store-leads-reviews-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    },
+    "sec-financials-insiders": {
+      "url": "https://whthpnd--sec-financials-insider-trading-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    }
+  }
+}
