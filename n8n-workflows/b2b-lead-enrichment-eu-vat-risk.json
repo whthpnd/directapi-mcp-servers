@@ -1,96 +1,500 @@
 {
-  "name": "B2B Lead Enrichment, EU VAT & Fraud Risk Check (DirectAPI Labs)",
+  "name": "B2B Lead Enrichment, EU Impressum, VIES VAT & Fraud Risk Check (Clearbit Alternative)",
   "nodes": [
     {
       "parameters": {
-        "httpMethod": "POST",
-        "path": "b2b-lead-enrichment",
-        "responseMode": "onReceived"
+        "content": "## B2B Lead Enrichment, EU KYB & Signup Fraud Check\n\nReplaces expensive Clearbit/Apollo enrichment seats with a single proxy-free HTTP call powered by **DirectAPI Labs** (`b2b-company-kyb-risk-api`).\n\n### Setup (1 Minute)\n1. Create a free [Apify account](https://console.apify.com) and copy your API token (`Settings -> Integrations`).\n2. In n8n, create a **Header Auth** credential named `Apify API Bearer Token`:\n   - **Name:** `Authorization`\n   - **Value:** `Bearer <your_apify_token>`\n3. Select that credential in **Enrich Company, EU VAT & Fraud Risk**.\n4. Click **Execute workflow** to test with `sipgate.de`, or activate the Webhook for live signups.",
+        "height": 320,
+        "width": 460,
+        "color": 4
       },
-      "id": "webhook-lead",
-      "name": "Inbound Lead Webhook",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2,
-      "position": [220, 300]
+      "id": "sticky-overview-setup",
+      "name": "Sticky Note — Overview & Setup",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -100
+      ]
     },
     {
       "parameters": {
-        "url": "https://whthpnd--b2b-company-kyb-risk-api.apify.actor/v1/full",
-        "sendQuery": true,
-        "queryParameters": {
-          "parameters": [
-            {
-              "name": "target",
-              "value": "={{ $json.body.email || $json.body.domain }}"
-            }
-          ]
-        },
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Authorization",
-              "value": "Bearer YOUR_APIFY_TOKEN"
-            }
-          ]
-        }
+        "content": "## Triggers & Payload Format\nSend either a corporate domain or an email address via `POST` to `/webhook/b2b-lead-enrichment`:\n\n```json\n{\n  \"email\": \"founder@sipgate.de\",\n  \"domain\": \"sipgate.de\"\n}\n```\nOr use **Execute workflow** with the built-in test lead.",
+        "height": 190,
+        "width": 460,
+        "color": 6
       },
-      "id": "enrich-b2b",
-      "name": "DirectAPI B2B KYB & Fraud Risk",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [460, 300]
+      "id": "sticky-triggers-help",
+      "name": "Sticky Note — Triggers & Test",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        640
+      ]
     },
     {
       "parameters": {
-        "conditions": {
-          "string": [
-            {
-              "value1": "={{ $json.riskVerdict }}",
-              "operation": "equals",
-              "value2": "allow"
-            }
-          ]
-        }
+        "content": "## What One `/v1/full` Call Checks\n- **Company & EU Impressum:** legal name, registration number, directors, city, tech stack, emails, social links.\n- **KYB Compliance:** live **EU VIES VAT** validation, **GLEIF LEI**, French Sirene, and **US OFAC SDN** sanctions screening.\n- **Fraud Risk (<250ms):** disposable domains, burner/alias MX servers, mail provider, SPF/DMARC, RDAP domain age (`riskVerdict`: `allow` / `review` / `block`).",
+        "height": 300,
+        "width": 440,
+        "color": 5
       },
-      "id": "check-verdict",
-      "name": "Is Legitimate B2B Lead?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [700, 300]
+      "id": "sticky-api-details",
+      "name": "Sticky Note — KYB & Fraud Checks",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        520,
+        -60
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Routing & CRM Extensions\n- **Top Branch (`Qualified`):** `riskVerdict == \"allow\"` AND `sanctionsHit != true` -> attach **HubSpot**, **Pipedrive**, **Airtable**, or **Google Sheets** after `Format Qualified CRM Record`.\n- **Bottom Branch (`Flagged`):** disposable/high-risk or sanctioned hits -> route to **Slack** / **Telegram** security alert or block free trial signup.",
+        "height": 240,
+        "width": 620,
+        "color": 7
+      },
+      "id": "sticky-routing-extensions",
+      "name": "Sticky Note — Routing & Extensions",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        -60
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "manual-test-trigger",
+      "name": "Manual Test Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        40,
+        300
+      ]
     },
     {
       "parameters": {
         "assignments": {
           "assignments": [
             {
-              "name": "qualifiedLead",
-              "value": "={{ $json.companyName + ' | ' + $json.legalName + ' | VAT valid: ' + $json.vatValid + ' | Tech: ' + ($json.techStack || []).join(', ') }}",
+              "id": "sample-domain-field",
+              "name": "domain",
+              "value": "sipgate.de",
+              "type": "string"
+            },
+            {
+              "id": "sample-email-field",
+              "name": "email",
+              "value": "",
               "type": "string"
             }
           ]
-        }
+        },
+        "options": {}
       },
-      "id": "format-qualified",
-      "name": "Format Qualified CRM Payload",
+      "id": "sample-test-lead",
+      "name": "Sample Test Lead",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
-      "position": [940, 220]
+      "position": [
+        260,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "b2b-lead-enrichment",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-lead-inbound",
+      "name": "Inbound Lead Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        260,
+        480
+      ],
+      "webhookId": "b2b-lead-enrichment-v1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "norm-target-field",
+              "name": "target",
+              "value": "={{ (($json.body && ($json.body.email || $json.body.domain)) || $json.email || $json.domain || '').toString().trim() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "normalize-lead-target",
+      "name": "Normalize Lead Target",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        520,
+        390
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://whthpnd--b2b-company-kyb-risk-api.apify.actor/v1/full",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "target",
+              "value": "={{ $json.target }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 25000
+        }
+      },
+      "id": "enrich-b2b-kyb-api",
+      "name": "Enrich Company, EU VAT & Fraud Risk",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        760,
+        390
+      ],
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Apify API Bearer Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cond-risk-allow",
+              "leftValue": "={{ $json.riskVerdict }}",
+              "rightValue": "allow",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "cond-no-sanctions",
+              "leftValue": "={{ String($json.sanctionsHit) }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-legit-b2b-lead",
+      "name": "Is Legitimate B2B Lead?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1000,
+        390
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "qual-status",
+              "name": "leadStatus",
+              "value": "qualified",
+              "type": "string"
+            },
+            {
+              "id": "qual-domain",
+              "name": "domain",
+              "value": "={{ $json.domain || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "qual-company",
+              "name": "companyName",
+              "value": "={{ $json.companyName || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "qual-legal",
+              "name": "legalName",
+              "value": "={{ $json.legalName || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "qual-country",
+              "name": "country",
+              "value": "={{ $json.country || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "qual-city",
+              "name": "hqCity",
+              "value": "={{ $json.hqCity || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "qual-vat",
+              "name": "vatNumber",
+              "value": "={{ $json.vatNumber || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "qual-vat-valid",
+              "name": "vatValid",
+              "value": "={{ Boolean($json.vatValid) }}",
+              "type": "boolean"
+            },
+            {
+              "id": "qual-lei",
+              "name": "lei",
+              "value": "={{ $json.lei || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "qual-lei-status",
+              "name": "leiStatus",
+              "value": "={{ $json.leiStatus || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "qual-reg",
+              "name": "registrationNumber",
+              "value": "={{ $json.registrationNumber || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "qual-mail",
+              "name": "mailProvider",
+              "value": "={{ $json.mailProvider || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "qual-tech",
+              "name": "techStack",
+              "value": "={{ Array.isArray($json.techStack) ? $json.techStack.join(', ') : '' }}",
+              "type": "string"
+            },
+            {
+              "id": "qual-emails",
+              "name": "emails",
+              "value": "={{ Array.isArray($json.emails) ? $json.emails.join(', ') : '' }}",
+              "type": "string"
+            },
+            {
+              "id": "qual-linkedin",
+              "name": "linkedinUrl",
+              "value": "={{ ($json.socials && $json.socials.linkedin) ? $json.socials.linkedin : '' }}",
+              "type": "string"
+            },
+            {
+              "id": "qual-score",
+              "name": "riskScore",
+              "value": "={{ Number($json.riskScore ?? 0) }}",
+              "type": "number"
+            },
+            {
+              "id": "qual-verdict",
+              "name": "riskVerdict",
+              "value": "={{ $json.riskVerdict || 'allow' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "format-qualified-crm",
+      "name": "Format Qualified CRM Record",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1260,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "respond-qualified-lead",
+      "name": "Respond: Qualified Lead",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1500,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "flag-status",
+              "name": "leadStatus",
+              "value": "flagged",
+              "type": "string"
+            },
+            {
+              "id": "flag-target",
+              "name": "target",
+              "value": "={{ $json.input || $json.domain || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "flag-domain",
+              "name": "domain",
+              "value": "={{ $json.domain || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "flag-verdict",
+              "name": "riskVerdict",
+              "value": "={{ $json.riskVerdict || 'review' }}",
+              "type": "string"
+            },
+            {
+              "id": "flag-score",
+              "name": "riskScore",
+              "value": "={{ Number($json.riskScore ?? 0) }}",
+              "type": "number"
+            },
+            {
+              "id": "flag-factors",
+              "name": "riskFactors",
+              "value": "={{ Array.isArray($json.riskFactors) ? $json.riskFactors.join(', ') : '' }}",
+              "type": "string"
+            },
+            {
+              "id": "flag-disposable",
+              "name": "isDisposableDomain",
+              "value": "={{ Boolean($json.isDisposableDomain) }}",
+              "type": "boolean"
+            },
+            {
+              "id": "flag-burner",
+              "name": "isBurnerMx",
+              "value": "={{ Boolean($json.isBurnerMx) }}",
+              "type": "boolean"
+            },
+            {
+              "id": "flag-sanctions",
+              "name": "sanctionsHit",
+              "value": "={{ Boolean($json.sanctionsHit) }}",
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "format-flagged-alert",
+      "name": "Format Risk Review Alert",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1260,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "respond-flagged-lead",
+      "name": "Respond: Flagged Lead",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1500,
+        500
+      ]
     }
   ],
   "connections": {
-    "Inbound Lead Webhook": {
+    "Manual Test Trigger": {
       "main": [
         [
           {
-            "node": "DirectAPI B2B KYB & Fraud Risk",
+            "node": "Sample Test Lead",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "DirectAPI B2B KYB & Fraud Risk": {
+    "Sample Test Lead": {
+      "main": [
+        [
+          {
+            "node": "Normalize Lead Target",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Inbound Lead Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize Lead Target",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Lead Target": {
+      "main": [
+        [
+          {
+            "node": "Enrich Company, EU VAT & Fraud Risk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enrich Company, EU VAT & Fraud Risk": {
       "main": [
         [
           {
@@ -105,17 +509,49 @@
       "main": [
         [
           {
-            "node": "Format Qualified CRM Payload",
+            "node": "Format Qualified CRM Record",
             "type": "main",
             "index": 0
           }
         ],
-        []
+        [
+          {
+            "node": "Format Risk Review Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Qualified CRM Record": {
+      "main": [
+        [
+          {
+            "node": "Respond: Qualified Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Risk Review Alert": {
+      "main": [
+        [
+          {
+            "node": "Respond: Flagged Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
+  "pinData": {},
   "active": false,
   "settings": {
     "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
   }
 }
