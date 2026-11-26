@@ -22,6 +22,13 @@ Every server below speaks standard **MCP Streamable HTTP JSON-RPC 2.0** (`initia
 | **SEC Company Financials (XBRL) & Form 4 Insiders** | `https://whthpnd--sec-financials-insider-trading-api.apify.actor/mcp` | `get_sec_company_full`, `get_sec_xbrl_financials`, `get_sec_insider_trades` | [Live on Apify](https://apify.com/whthpnd/sec-financials-insider-trading-api) |
 <!-- AUTO-MCP-TABLE:END -->
 
+### Glama Connector Badges
+[![B2B Company KYB Risk MCP connector](https://glama.ai/mcp/connectors/actor.apify.whthpnd--b2b-company-kyb-risk-api/direct-api-labs-b2b-company-eu-vatkyb-and-fraud-risk/badges/score.svg)](https://glama.ai/mcp/connectors/actor.apify.whthpnd--b2b-company-kyb-risk-api/direct-api-labs-b2b-company-eu-vatkyb-and-fraud-risk)
+[![Website SEO, llms.txt & Security Audit MCP connector](https://glama.ai/mcp/connectors/actor.apify.whthpnd--seo-geo-security-audit-api/direct-api-labs-website-seo-llmstxt-and-security-audit/badges/score.svg)](https://glama.ai/mcp/connectors/actor.apify.whthpnd--seo-geo-security-audit-api/direct-api-labs-website-seo-llmstxt-and-security-audit)
+[![Domain & Brand Availability MCP connector](https://glama.ai/mcp/connectors/actor.apify.whthpnd--domain-brand-availability-api/direct-api-labs-domain-brand-and-handle-availability/badges/score.svg)](https://glama.ai/mcp/connectors/actor.apify.whthpnd--domain-brand-availability-api/direct-api-labs-domain-brand-and-handle-availability)
+[![Apple App Store Leads & Reviews MCP connector](https://glama.ai/mcp/connectors/actor.apify.whthpnd--ios-app-store-leads-reviews-api/direct-api-labs-apple-app-store-leads-and-reviews/badges/score.svg)](https://glama.ai/mcp/connectors/actor.apify.whthpnd--ios-app-store-leads-reviews-api/direct-api-labs-apple-app-store-leads-and-reviews)
+[![SEC XBRL Financials & Form 4 Insiders MCP connector](https://glama.ai/mcp/connectors/actor.apify.whthpnd--sec-financials-insider-trading-api/direct-api-labs-sec-xbrl-financials-and-form-4-insiders/badges/score.svg)](https://glama.ai/mcp/connectors/actor.apify.whthpnd--sec-financials-insider-trading-api/direct-api-labs-sec-xbrl-financials-and-form-4-insiders)
+
 ---
 
 ## Cursor / Claude / Windsurf Config (`mcp.json`)
