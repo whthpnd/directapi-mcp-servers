@@ -29,6 +29,36 @@
       "headers": {
         "Authorization": "Bearer YOUR_APIFY_TOKEN"
       }
+    },
+    "google-play-leads-reviews": {
+      "url": "https://whthpnd--google-play-leads-reviews-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    },
+    "shopify-store-leads-products": {
+      "url": "https://whthpnd--shopify-store-leads-products-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    },
+    "telegram-public-channels": {
+      "url": "https://whthpnd--telegram-public-channels-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    },
+    "us-federal-contracts-grants": {
+      "url": "https://whthpnd--us-federal-contracts-grants-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    },
+    "cve-exploit-package-security": {
+      "url": "https://whthpnd--cve-exploit-package-security-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
     }
   }
 }
