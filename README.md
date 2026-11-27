@@ -20,6 +20,11 @@ Every server below speaks standard **MCP Streamable HTTP JSON-RPC 2.0** (`initia
 | **Domain, Brand & Handle Availability** | `https://whthpnd--domain-brand-availability-api.apify.actor/mcp` | `check_brand_launch_availability`, `check_domains_only` | [Live on Apify](https://apify.com/whthpnd/domain-brand-availability-api) |
 | **Apple App Store Reviews & Developer Leads** | `https://whthpnd--ios-app-store-leads-reviews-api.apify.actor/mcp` | `search_ios_apps_and_developer_leads`, `get_ios_app_details`, `get_ios_app_reviews` | [Live on Apify](https://apify.com/whthpnd/ios-app-store-leads-reviews-api) |
 | **SEC Company Financials (XBRL) & Form 4 Insiders** | `https://whthpnd--sec-financials-insider-trading-api.apify.actor/mcp` | `get_sec_company_full`, `get_sec_xbrl_financials`, `get_sec_insider_trades` | [Live on Apify](https://apify.com/whthpnd/sec-financials-insider-trading-api) |
+| **Google Play Apps, `1–2★` Reviews & Dev Emails** | `https://whthpnd--google-play-leads-reviews-api.apify.actor/mcp` | `search_google_play_apps_and_leads`, `get_google_play_app_details`, `get_google_play_app_reviews` | `Staging (Publishing Soon)` |
+| **Shopify Store Leads, Catalogs & Apps** | `https://whthpnd--shopify-store-leads-products-api.apify.actor/mcp` | `analyze_shopify_store_full`, `get_shopify_products`, `extract_shopify_store_contacts` | `Staging (Publishing Soon)` |
+| **Telegram Public Channels, Posts & Search** | `https://whthpnd--telegram-public-channels-api.apify.actor/mcp` | `get_telegram_channel_info_and_posts`, `search_telegram_channel_posts`, `compare_telegram_channels` | `Staging (Publishing Soon)` |
+| **US Federal Contracts & Grants (`USASpending`)** | `https://whthpnd--us-federal-contracts-grants-api.apify.actor/mcp` | `search_us_federal_contracts`, `search_us_federal_grants`, `get_us_contractor_awards_summary` | `Staging (Publishing Soon)` |
+| **CVE, CISA KEV & Package Security (`OSV` + `EPSS`)** | `https://whthpnd--cve-exploit-package-security-api.apify.actor/mcp` | `audit_package_vulnerabilities`, `lookup_cve_exploit_intel`, `list_actively_exploited_kevs` | `Staging (Publishing Soon)` |
 <!-- AUTO-MCP-TABLE:END -->
 
 ### Glama Connector Badges
@@ -65,6 +70,36 @@ Copy [`mcp-configs/cursor-all.json`](./mcp-configs/cursor-all.json) (or pick the
     },
     "sec-financials-insiders": {
       "url": "https://whthpnd--sec-financials-insider-trading-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    },
+    "google-play-leads-reviews": {
+      "url": "https://whthpnd--google-play-leads-reviews-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    },
+    "shopify-store-leads-products": {
+      "url": "https://whthpnd--shopify-store-leads-products-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    },
+    "telegram-public-channels": {
+      "url": "https://whthpnd--telegram-public-channels-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    },
+    "us-federal-contracts-grants": {
+      "url": "https://whthpnd--us-federal-contracts-grants-api.apify.actor/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_APIFY_TOKEN"
+      }
+    },
+    "cve-exploit-package-security": {
+      "url": "https://whthpnd--cve-exploit-package-security-api.apify.actor/mcp",
       "headers": {
         "Authorization": "Bearer YOUR_APIFY_TOKEN"
       }
@@ -127,6 +162,11 @@ curl -s -H "Authorization: Bearer $APIFY_TOKEN" \
 | **Brand & Domains** | `domain-brand-availability-api` | [whthpnd/domain-brand-availability-api](https://apify.com/whthpnd/domain-brand-availability-api) |
 | **Mobile & ASO Leads** | `ios-app-store-leads-reviews-api` | [whthpnd/ios-app-store-leads-reviews-api](https://apify.com/whthpnd/ios-app-store-leads-reviews-api) |
 | **Public Markets & SEC** | `sec-financials-insider-trading-api` | [whthpnd/sec-financials-insider-trading-api](https://apify.com/whthpnd/sec-financials-insider-trading-api) |
+| **Android & Play Leads** | `google-play-leads-reviews-api` | `Staging (Publishing Soon)` |
+| **E-Commerce / Shopify** | `shopify-store-leads-products-api` | `Staging (Publishing Soon)` |
+| **Telegram Intelligence** | `telegram-public-channels-api` | `Staging (Publishing Soon)` |
+| **US Gov Contracts & Grants** | `us-federal-contracts-grants-api` | `Staging (Publishing Soon)` |
+| **AppSec / CVE & EPSS** | `cve-exploit-package-security-api` | `Staging (Publishing Soon)` |
 | **Podcast Host Emails** | `apple-podcasts-leads-scraper` | [whthpnd/apple-podcasts-leads-scraper](https://apify.com/whthpnd/apple-podcasts-leads-scraper) |
 | **Tech Career Boards** | `ats-jobs-greenhouse-lever-ashby` | [whthpnd/ats-jobs-greenhouse-lever-ashby](https://apify.com/whthpnd/ats-jobs-greenhouse-lever-ashby) |
 | **Central EU Ads** | `bazos-classifieds-scraper` | [whthpnd/bazos-classifieds-scraper](https://apify.com/whthpnd/bazos-classifieds-scraper) |
